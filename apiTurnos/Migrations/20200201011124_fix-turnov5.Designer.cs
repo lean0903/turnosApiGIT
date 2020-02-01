@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using apiTurnos.Data;
 
 namespace apiTurnos.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200201011124_fix-turnov5")]
+    partial class fixturnov5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,15 +131,10 @@ namespace apiTurnos.Migrations
                     b.Property<string>("descripcion")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("empresaid")
-                        .HasColumnType("int");
-
                     b.Property<string>("name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
-
-                    b.HasIndex("empresaid");
 
                     b.ToTable("servicios");
                 });
@@ -232,13 +229,6 @@ namespace apiTurnos.Migrations
                     b.HasOne("apiTurnos.Models.Usuario", "Usuario")
                         .WithMany("roles")
                         .HasForeignKey("Usuarioid");
-                });
-
-            modelBuilder.Entity("apiTurnos.Models.Servicio", b =>
-                {
-                    b.HasOne("apiTurnos.Models.Empresa", "empresa")
-                        .WithMany("servicios")
-                        .HasForeignKey("empresaid");
                 });
 
             modelBuilder.Entity("apiTurnos.Models.Turno", b =>

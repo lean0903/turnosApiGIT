@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using apiTurnos.Data;
 
 namespace apiTurnos.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200201002553_fin-modev2")]
+    partial class finmodev2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,9 +72,6 @@ namespace apiTurnos.Migrations
 
                     b.HasKey("jornadaId", "servicioId");
 
-                    b.HasIndex("jornadaId")
-                        .IsUnique();
-
                     b.HasIndex("servicioId");
 
                     b.ToTable("jornadasServicios");
@@ -129,15 +128,10 @@ namespace apiTurnos.Migrations
                     b.Property<string>("descripcion")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("empresaid")
-                        .HasColumnType("int");
-
                     b.Property<string>("name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
-
-                    b.HasIndex("empresaid");
 
                     b.ToTable("servicios");
                 });
@@ -149,26 +143,12 @@ namespace apiTurnos.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("horaFin")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("horaInicio")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("jornadaServiciojornadaId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("jornadaServicioservicioId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("usuarioid")
                         .HasColumnType("int");
 
                     b.HasKey("id");
 
                     b.HasIndex("usuarioid");
-
-                    b.HasIndex("jornadaServiciojornadaId", "jornadaServicioservicioId");
 
                     b.ToTable("turnos");
                 });
@@ -208,8 +188,8 @@ namespace apiTurnos.Migrations
             modelBuilder.Entity("apiTurnos.Models.JornadaServicio", b =>
                 {
                     b.HasOne("apiTurnos.Models.Jornada", "jornada")
-                        .WithOne("diaServicio")
-                        .HasForeignKey("apiTurnos.Models.JornadaServicio", "jornadaId")
+                        .WithMany()
+                        .HasForeignKey("jornadaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -234,22 +214,11 @@ namespace apiTurnos.Migrations
                         .HasForeignKey("Usuarioid");
                 });
 
-            modelBuilder.Entity("apiTurnos.Models.Servicio", b =>
-                {
-                    b.HasOne("apiTurnos.Models.Empresa", "empresa")
-                        .WithMany("servicios")
-                        .HasForeignKey("empresaid");
-                });
-
             modelBuilder.Entity("apiTurnos.Models.Turno", b =>
                 {
                     b.HasOne("apiTurnos.Models.Usuario", "usuario")
                         .WithMany("turnos")
                         .HasForeignKey("usuarioid");
-
-                    b.HasOne("apiTurnos.Models.JornadaServicio", "jornadaServicio")
-                        .WithMany("turnos")
-                        .HasForeignKey("jornadaServiciojornadaId", "jornadaServicioservicioId");
                 });
 #pragma warning restore 612, 618
         }
