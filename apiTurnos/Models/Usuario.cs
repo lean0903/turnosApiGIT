@@ -13,6 +13,8 @@ namespace apiTurnos.Models
         [Required]
         public string dni { get; set; }
         public int id {get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
         public DateTime fechaNacimiento { get; set; }
         public List<Turno> turnos { get; set; }
         public List<Rol> roles { get; set; }

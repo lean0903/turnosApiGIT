@@ -1,0 +1,33 @@
+.body{
+    background-image: url(../../../../assets/img/arthur-humeau-pu20JkUx--A-unsplash.jpg);
+    background-size: cover;
+    height: 900px;
+    width:100%;
+    padding: 0;
+
+}
+
+.text{
+ height: 100%;
+
+}
+
+h1{
+    font-style:oblique;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 6vmax;
+    color:white;
+}
+p{
+    font-style:oblique;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.2vmax;
+    color:white;
+
+}
+.jumbotron{
+  
+    
+    
+    widows: 100%;
+}
